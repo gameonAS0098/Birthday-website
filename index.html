@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Bhavya 🌻</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --warm-cream: #FFF8E7;
+            --sunflower-yellow: #FFD93D;
+            --soft-orange: #FFB84D;
+            --warm-brown: #8B6F47;
+            --deep-brown: #5C4033;
+            --petal-gold: #FFEB99;
+            --text-dark: #3E2723;
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: linear-gradient(135deg, var(--warm-cream) 0%, #FFF5E1 50%, #FFE4B5 100%);
+            overflow: hidden;
+            color: var(--text-dark);
+            cursor: none;
+        }
+
+        /* Prevent body scrolling */
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* CUSTOM CURSOR WITH PARTICLE TRAIL */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--soft-orange);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-trail {
+            width: 8px;
+            height: 8px;
+            background: var(--sunflower-yellow);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Ambient floating petals */
+        .ambient-petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .floating-petal {
+            position: absolute;
+            width: 15px;
+            height: 20px;
+            background: var(--sunflower-yellow);
+            border-radius: 50% 50% 50% 0;
+            opacity: 0.4;
+            animation: float-ambient linear infinite;
+        }
+
+        @keyframes float-ambient {
+            0% {
+                transform: translateY(-100px) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(110vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container for sections */
+        .sections-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .section {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            z-index: 2;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Custom scrollbar for sections */
+        .section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .section::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .section::-webkit-scrollbar-thumb {
+            background: var(--soft-orange);
+            border-radius: 10px;
+        }
+
+        .section::-webkit-scrollbar-thumb:hover {
+            background: var(--sunflower-yellow);
+        }
+
+        .section.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .section-content {
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+            padding: 60px 40px;
+            margin: auto;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 300;
+            color: var(--deep-brown);
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 400;
+            color: var(--warm-brown);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        p {
+            font-family: 'Jost', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 1.9;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .small-text {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--warm-brown);
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .highlight {
+            color: var(--soft-orange);
+            font-weight: 500;
+        }
+
+        /* Navigation dots - HIDDEN, only for visual reference */
+        .nav-dots {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--warm-brown);
+            opacity: 0.3;
+            cursor: default;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .dot.active {
+            opacity: 1;
+            background: var(--soft-orange);
+            transform: scale(1.5);
+        }
+
+        /* Keyboard hint */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            font-size: 0.9rem;
+            color: var(--warm-brown);
+            opacity: 0.6;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Section 1: Opening */
+        #section0 .sunflower-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: gentle-rotate 20s linear infinite;
+        }
+
+        @keyframes gentle-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* TIMELINE SECTION */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--sunflower-yellow), var(--soft-orange));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+            opacity: 0;
+        }
+
+        .timeline-item.left {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-item.show {
+            animation: timelineSlide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes timelineSlide {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid var(--sunflower-yellow);
+            box-shadow: 0 5px 20px rgba(255, 184, 77, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 184, 77, 0.4);
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--soft-orange);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .timeline-text {
+            color: var(--deep-brown);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--soft-orange);
+            border-radius: 50%;
+            top: 30px;
+            box-shadow: 0 0 0 4px var(--warm-cream), 0 0 0 8px var(--sunflower-yellow);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        .timeline-item.left .timeline-dot {
+            right: -10px;
+        }
+
+        .timeline-item.right .timeline-dot {
+            left: -10px;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 4px var(--warm-cream), 0 0 0 8px var(--sunflower-yellow);
+            }
+            50% {
+                box-shadow: 0 0 0 4px var(--warm-cream), 0 0 0 12px var(--sunflower-yellow);
+            }
+        }
+
+        /* PREMIUM ORGANIC BLOB CARDS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            perspective: 1000px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 30px 25px;
+            border-radius: 40% 60% 55% 45% / 55% 45% 60% 40%;
+            border: 2px solid rgba(255, 211, 61, 0.4);
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: translateY(30px) rotate(-2deg);
+            box-shadow: 0 10px 30px rgba(255, 184, 77, 0.2);
+        }
+
+        .card.animate {
+            animation: blobFloat 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes blobFloat {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(1deg);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-15px) rotate(0deg) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 184, 77, 0.4);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--soft-orange);
+            border-width: 3px;
+        }
+
+        .card-emoji {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            display: inline-block;
+            animation: emojiFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes emojiFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .card-text {
+            font-size: 1.1rem;
+            color: var(--deep-brown);
+            font-weight: 500;
+        }
+
+        /* POLAROID MEMORY CARDS */
+        .memory-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .memory-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 248, 231, 0.9));
+            padding: 30px 25px 40px;
+            border-radius: 10px 10px 15px 15px;
+            border: 1px solid rgba(255, 211, 61, 0.3);
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--deep-brown);
+            font-style: italic;
+            opacity: 0;
+            transform: translateY(50px) rotate(-3deg);
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .memory-card::before {
+            content: '📌';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .memory-card.show {
+            animation: polaroidDrop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes polaroidDrop {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(2deg);
+            }
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px) rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 184, 77, 0.3);
+        }
+
+        /* GLASS EXPANSION CARDS */
+        .smile-reveals {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .smile-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 35% 65% 60% 40% / 45% 55% 45% 55%;
+            border: 2px solid rgba(255, 211, 61, 0.5);
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--deep-brown);
+            opacity: 0;
+            transform: scale(0) rotate(-180deg);
+            box-shadow: 0 0 30px rgba(255, 211, 61, 0.3);
+        }
+
+        .smile-card.reveal {
+            animation: glassExpand 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes glassExpand {
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .smile-card:hover {
+            box-shadow: 0 0 50px rgba(255, 211, 61, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* ELEGANT GLASS LAYERS */
+        .energy-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 40px auto;
+            max-width: 650px;
+        }
+
+        .energy-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 248, 231, 0.7));
+            backdrop-filter: blur(10px);
+            padding: 30px 35px;
+            border-radius: 25px;
+            border-left: 5px solid var(--soft-orange);
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--deep-brown);
+            opacity: 0;
+            transform: translateX(-100px);
+            box-shadow: 0 8px 30px rgba(255, 184, 77, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .energy-card.show {
+            animation: slideGlass 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes slideGlass {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .energy-card:hover {
+            border-left-width: 8px;
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(255, 184, 77, 0.4);
+        }
+
+        /* FLOATING ORB CARDS */
+        .weather-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .weather-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 235, 153, 0.7));
+            backdrop-filter: blur(10px);
+            padding: 35px 25px;
+            border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%;
+            border: 3px solid rgba(255, 211, 61, 0.5);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            box-shadow: 0 10px 35px rgba(255, 184, 77, 0.25);
+        }
+
+        .weather-card.show {
+            animation: orbFloat 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(50px);
+            }
+            60% {
+                transform: scale(1.15) translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .weather-card:hover {
+            transform: scale(1.12) rotate(5deg);
+            box-shadow: 0 15px 50px rgba(255, 184, 77, 0.5);
+            border-color: var(--soft-orange);
+        }
+
+        .weather-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: emojiPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes emojiPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .weather-title {
+            font-weight: 600;
+            color: var(--soft-orange);
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        .weather-desc {
+            font-size: 1rem;
+            color: var(--warm-brown);
+        }
+
+        /* ARROW TRANSITION CARDS */
+        .effect-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .effect-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 28px;
+            border-radius: 40% 60% 50% 50% / 50% 50% 60% 40%;
+            border: 2px solid rgba(255, 211, 61, 0.4);
+            text-align: center;
+            font-size: 1.15rem;
+            color: var(--deep-brown);
+            opacity: 0;
+            transform: translateY(30px) rotate(-2deg);
+            box-shadow: 0 8px 25px rgba(255, 184, 77, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .effect-card.show {
+            animation: effectPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes effectPop {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(1deg);
+            }
+        }
+
+        .effect-card:hover {
+            background: rgba(255, 235, 153, 0.95);
+            transform: translateY(-12px) rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 184, 77, 0.4);
+            border-color: var(--soft-orange);
+        }
+
+        .effect-arrow {
+            font-size: 1.8rem;
+            color: var(--soft-orange);
+            margin: 0 12px;
+            display: inline-block;
+            animation: arrowPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        /* MASONRY FLIP CARDS */
+        .appreciation-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .appreciation-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 235, 153, 0.8));
+            padding: 28px 22px;
+            border-radius: 38% 62% 57% 43% / 43% 57% 62% 38%;
+            border: 2px solid var(--soft-orange);
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--deep-brown);
+            opacity: 0;
+            transform: rotateX(-90deg);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 0 8px 30px rgba(255, 184, 77, 0.25);
+            transition: all 0.4s ease;
+        }
+
+        .appreciation-card.show {
+            animation: cardFlip 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes cardFlip {
+            to {
+                opacity: 1;
+                transform: rotateX(0deg);
+            }
+        }
+
+        .appreciation-card:hover {
+            background: linear-gradient(135deg, rgba(255, 235, 153, 0.95), rgba(255, 211, 61, 0.9));
+            transform: scale(1.1) rotate(-2deg);
+            box-shadow: 0 12px 40px rgba(255, 184, 77, 0.5);
+        }
+
+        /* TIMELINE GLASS CARDS */
+        .future-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 40px auto;
+            max-width: 600px;
+        }
+
+        .future-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 25px 35px;
+            border-radius: 30px;
+            border-left: 5px solid var(--sunflower-yellow);
+            font-size: 1.2rem;
+            color: var(--deep-brown);
+            opacity: 0;
+            transform: translateX(100px);
+            box-shadow: 0 8px 30px rgba(255, 184, 77, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .future-card.show {
+            animation: slideInSmooth 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes slideInSmooth {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .future-card:hover {
+            border-left-width: 8px;
+            background: rgba(255, 235, 153, 0.95);
+            transform: translateX(-10px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(255, 184, 77, 0.4);
+        }
+
+        /* PULSING GLOW FINAL CARDS */
+        .final-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 40px auto;
+            max-width: 550px;
+        }
+
+        .final-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 235, 153, 0.9));
+            padding: 30px;
+            border-radius: 42% 58% 53% 47% / 47% 53% 58% 42%;
+            border: 2px solid var(--sunflower-yellow);
+            font-size: 1.25rem;
+            text-align: center;
+            color: var(--deep-brown);
+            opacity: 0;
+            transform: scale(0);
+            box-shadow: 0 0 30px rgba(255, 211, 61, 0.3);
+        }
+
+        .final-card.show {
+            animation: finalGlow 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes finalGlow {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+                box-shadow: 0 0 0 rgba(255, 211, 61, 0);
+            }
+            60% {
+                box-shadow: 0 0 50px rgba(255, 211, 61, 0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(255, 211, 61, 0.4);
+            }
+        }
+
+        .final-card:hover {
+            box-shadow: 0 0 50px rgba(255, 211, 61, 0.6);
+            animation: gentlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        /* COMPLIMENT BUBBLES */
+        .compliments-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .compliment-bubble {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 235, 153, 0.6));
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            color: var(--deep-brown);
+            border: 2px solid var(--sunflower-yellow);
+            opacity: 0;
+            transform: scale(0);
+            animation: bubblePop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            box-shadow: 0 5px 20px rgba(255, 184, 77, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        @keyframes bubblePop {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .compliment-bubble:hover {
+            background: linear-gradient(135deg, rgba(255, 235, 153, 0.95), rgba(255, 211, 61, 0.8));
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(255, 184, 77, 0.4);
+        }
+
+        /* REVEAL BUTTONS */
+        .reveal-container {
+            margin: 40px 0;
+        }
+
+        .reveal-button {
+            background: linear-gradient(135deg, var(--sunflower-yellow), var(--soft-orange));
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-family: 'Jost', sans-serif;
+            font-size: 1.3rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 184, 77, 0.3);
+            margin: 10px;
+        }
+
+        .reveal-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 184, 77, 0.5);
+        }
+
+        .reveal-button:active {
+            transform: translateY(-2px);
+        }
+
+        .secret-text {
+            font-size: 1.3rem;
+            color: var(--soft-orange);
+            margin: 20px 0;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .secret-text.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* RESTART BUTTON */
+        .restart-button {
+            background: linear-gradient(135deg, var(--warm-brown), var(--deep-brown));
+            border: none;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-family: 'Jost', sans-serif;
+            font-size: 1.2rem;
+            color: var(--warm-cream);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(92, 64, 51, 0.3);
+            margin-top: 30px;
+        }
+
+        .restart-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(92, 64, 51, 0.5);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* HEART PARTICLES */
+        .heart-particle {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 999;
+            animation: floatHeart 3s ease-out forwards;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) scale(1);
+            }
+            100% {
+                transform: translateY(-200px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor, .cursor-trail {
+                display: none;
+            }
+
+            .nav-dots {
+                right: 20px;
+                gap: 10px;
+            }
+            
+            .dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .keyboard-hint {
+                bottom: 20px;
+                font-size: 0.8rem;
+            }
+
+            .section-content {
+                padding: 80px 20px 40px;
+            }
+
+            .cards-grid,
+            .weather-cards,
+            .effect-cards,
+            .appreciation-wall {
+                grid-template-columns: 1fr;
+            }
+
+            .memory-cards,
+            .smile-reveals {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                text-align: left !important;
+            }
+
+            .timeline-item.left,
+            .timeline-item.right {
+                left: 0;
+            }
+
+            .timeline-item .timeline-dot {
+                left: 20px !important;
+            }
+        }
+
+        /* LOADING ANIMATION */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--warm-cream);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-sunflower {
+            font-size: 80px;
+            animation: spin 2s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            color: var(--deep-brown);
+            font-family: 'Cormorant Garamond', serif;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Loading screen -->
+    <div class="loading" id="loading">
+        <div class="loading-sunflower">🌻</div>
+        <div class="loading-text">Loading something special for Bhavya...</div>
+    </div>
+
+    <!-- Ambient floating petals -->
+    <div class="ambient-petals" id="ambientPetals"></div>
+
+    <!-- Navigation dots (visual indicators only) -->
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- Keyboard navigation hint -->
+    <div class="keyboard-hint">
+        Use ← → arrow keys to navigate • Scroll within sections 🤍
+    </div>
+
+    <!-- Sections container -->
+    <div class="sections-container" id="sectionsContainer"></div>
+
+    <script>
+        // ========== CUSTOM CURSOR WITH TRAIL ==========
+        const cursor = document.getElementById('cursor');
+        const trails = [];
+        const trailLength = 8;
+
+        // Create cursor trails
+        for (let i = 0; i < trailLength; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            trails.push(trail);
+        }
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+
+            // Animate trails
+            trails.forEach((trail, index) => {
+                const nextTrail = trails[index - 1] || cursor;
+                
+                const trailX = parseFloat(nextTrail.style.left) || cursorX;
+                const trailY = parseFloat(nextTrail.style.top) || cursorY;
+                
+                trail.style.left = trailX + 'px';
+                trail.style.top = trailY + 'px';
+                trail.style.opacity = 0.6 - (index * 0.07);
+            });
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        if (window.innerWidth > 768) {
+            animateCursor();
+        }
+
+        // Section data
+        const sections = [
+            {
+                id: 1,
+                title: "Opening",
+                content: `
+                    <div class="sunflower-icon">🌻</div>
+                    <h1>For Bhavya 🌻</h1>
+                    <p>This little corner of the internet exists only for you today.</p>
+                    <p>So take your time…<br>Move slowly…<br>And let me celebrate your day the way you deserve.</p>
+                    <p class="small-text">(Use arrow keys to navigate 🤍)</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Birthday Wish",
+                content: `
+                    <h2>🎂</h2>
+                    <p>Happy Birthday to the girl who somehow manages to be calm chaos, soft strength, and sunshine energy all at once.</p>
+                    <p>I hope this year feels lighter for you.<br>
+                    I hope it brings clarity where there was confusion, peace where there was overthinking, and love in ways you never have to question.</p>
+                    <p>May this year treat you gently — the way you treat everyone else.</p>
+                    <p class="small-text">And yes… you deserve to be treated good everyday. 😌</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Sunflowers",
+                content: `
+                    <h2>🌻 "You & Sunflowers"</h2>
+                    <p>I don't think it's a coincidence that you love sunflowers.</p>
+                    <p style="font-size: 4rem; margin: 40px 0;">🌻 🌻 🌻 🌻 🌻</p>
+                    <p>They turn toward light.<br>They grow even in tough soil.<br>And they stand tall without asking for attention.</p>
+                    <p>Sounds familiar, doesnt it?</p>
+                    <p class="small-text">Maybe thatss why you glow the way you do.</p>
+                `
+            },
+            {
+                id: 4,
+                title: "More Than",
+                content: `
+                    <h2>"More Than Just Pretty" ✨</h2>
+                    <p>You're not just pretty.<br>You are : </p>
+                    <div class="appreciation-wall" id="appreciationWall"></div>
+                    <p class="small-text highlight">That balance? It's beautiful.</p>
+                `
+            },
+            {
+                id: 5,
+                title: "Our Timeline",
+                content: `
+                    <h2>"How We Got Here" 💫</h2>
+                    <p>Every good thing has a beginning…<br>Here's ours.</p>
+                    <div class="timeline" id="timeline"></div>
+                    <p class="small-text">And this is just the start.</p>
+                `
+            },
+            {
+                id: 6,
+                title: "Strength",
+                content: `
+                    <h2>🌼</h2>
+                    <p>I know you don't always see it,<br>but you handle things quietly.</p>
+                    <p>You carry responsibilities.<br>You overthink.<br>You push through.</p>
+                    <p>And you still manage to smile.</p>
+                    <p class="small-text highlight">That strength?<br>It's beautiful.</p>
+                `
+            },
+            {
+                id: 7,
+                title: "Calm",
+                content: `
+                    <h2>"The Calm You Bring" 🌿</h2>
+                    <p>Some people are loud excitement.</p>
+                    <p>But you…<br>You're the calm after a long day.</p>
+                    <p>Talking to you doesn't feel heavy.<br>It feels safe.</p>
+                    <p>And that's rare.</p>
+                    <p class="small-text">I hope you never underestimate that.</p>
+                `
+            },
+            {
+                id: 8,
+                title: "Effect",
+                content: `
+                    <h2>"Your Effect On Me" 💫</h2>
+                    <p>I act calm.<br>But your messages genuinely change my mood.</p>
+                    <div class="effect-cards" id="effectCards"></div>
+                    <p class="small-text highlight">Thats impact And thats rare.</p>
+                `
+            },
+            {
+                id: 9,
+                title: "Your Smile",
+                content: `
+                    <h2>"Your Smile" 😊</h2>
+                    <p>Your smile does something to me.<br>And I don't think you fully understand that power.</p>
+                    <button class="reveal-button" id="smileRevealBtn">Tap to see why</button>
+                    <div class="smile-reveals" id="smileReveals"></div>
+                    <p class="small-text">Keep smiling. I like that version of you the most.</p>
+                `
+            },
+            {
+                id: 10,
+                title: "Weather",
+                content: `
+                    <h2>"If You Were a Weather" 🌤</h2>
+                    <p>If you were weather…<br>I'd still check the forecast every day.</p>
+                    <div class="weather-cards" id="weatherCards"></div>
+                    <p class="small-text">And honestly? I like all versions.</p>
+                `
+            },
+            {
+                id: 11,
+                title: "Things I Like",
+                content: `
+                    <h2>"Things I Like About You<br>(But Won't Admit Publicly)" 😌</h2>
+                    <div class="cards-grid" id="cardsGrid"></div>
+                    <p class="small-text">Don't argue. I'm right.</p>
+                `
+            },
+            {
+                id: 12,
+                title: "Hello & Now",
+                content: `
+                    <h2>"Somewhere Between Hello & Now" 💛</h2>
+                    <p>I don't remember the exact moment I started liking you.<br>It wasn't dramatic. No violins.</p>
+                    <p>It happened quietly…<br>Somewhere between "in which class you are?" <br>and "are you home safe?"</p>
+                    <p>And one day I realized —<br><span class="highlight">I look forward to you.</span></p>
+                    <div class="memory-cards" id="memoryCards"></div>
+                    <p class="small-text">That's when I knew something shifted.</p>
+                `
+            },
+            {
+                id: 13,
+                title: "Our Talks",
+                content: `
+                    <h2>💬</h2>
+                    <p>We talk almost every day.<br>And somehow it never feels forced.</p>
+                    <p>Some days it's random nonsense.<br>Some days it's deep thoughts at midnight.</p>
+                    <p>But every day…<br>it feels easy.</p>
+                    <p class="small-text">That's precious.</p>
+                `
+            },
+            {
+                id: 14,
+                title: "Energy",
+                content: `
+                    <h2>"The Energy Between Us" ⚡</h2>
+                    <p>We don't talk about it directly.<br>But it's there.</p>
+                    <p>That small pause before sending something risky.<br>That tension that isn't uncomfortable.<br>That comfort that feels slightly more than normal.</p>
+                    <div class="energy-cards" id="energyCards"></div>
+                    <p class="small-text highlight">I'm not in a hurry to define it.</p>
+                `
+            },
+            {
+                id: 15,
+                title: "Obvious",
+                content: `
+                    <h2>😏</h2>
+                    <p>Also…<br>let's not ignore the obvious.</p>
+                    <p class="highlight" style="font-size: 1.6rem;">You are very pretty.</p>
+                    <p>Like… distractingly pretty.</p>
+                    <p>It's slightly unfair.</p>
+                    <p class="small-text">Just saying.</p>
+                `
+            },
+            {
+                id: 16,
+                title: "Secrets",
+                content: `
+                    <h2>"Tap to reveal secrets" 🎈</h2>
+                    <div class="reveal-container" id="revealContainer"></div>
+                    <p class="small-text">Okay I like you way more than "little".</p>
+                `
+            },
+            {
+                id: 17,
+                title: "About Us",
+                content: `
+                    <h2>"About Us" 🤍</h2>
+                    <p>I don't know what name to give this yet.</p>
+                    <p>But I do know this —</p>
+                    <p>there's something here.<br>Something calm.<br>Something real.<br>Something that doesn't feel rushed.</p>
+                    <p>And I like that we're letting it grow naturally.</p>
+                    <p class="small-text">No pressure. Just presence.</p>
+                `
+            },
+            {
+                id: 18,
+                title: "Growing",
+                content: `
+                    <h2>"If This Keeps Growing…" 🌱</h2>
+                    <p>I'm not here to rush anything.<br>I don't want something forced.</p>
+                    <p>But if this keeps growing the way it is…<br><span class="highlight">I wouldn't mind seeing where it leads.</span></p>
+                    <div class="future-cards" id="futureCards"></div>
+                    <p class="small-text">No pressure. Just possibility.</p>
+                `
+            },
+            {
+                id: 19,
+                title: "Future",
+                content: `
+                    <h2>✨</h2>
+                    <p>I hope next year, when your birthday comes again,<br>I'm still here by your side wishing you.</p>
+                    <p>And maybe…<br>celebrating in person.</p>
+                    <p class="small-text">Soft. Intentional.</p>
+                `
+            },
+            {
+                id: 20,
+                title: "You Are",
+                content: `
+                    <h2>🌸</h2>
+                    <div class="compliments-container" id="complimentsContainer"></div>
+                    <p class="highlight" style="font-size: 1.8rem; margin-top: 30px;">You're more than you realize.</p>
+                `
+            },
+            {
+                id: 21,
+                title: "You Matter",
+                content: `
+                    <h2>🤍</h2>
+                    <p>If today teaches you anything,<br>let it be this —</p>
+                    <p class="highlight">You matter.<br>Your feelings matter.<br>Your presence matters.</p>
+                    <p>And you don't have to prove your worth to anyone.</p>
+                    <p class="small-text">Especially not to me.</p>
+                `
+            },
+            {
+                id: 22,
+                title: "Appreciation",
+                content: `
+                    <h2>🤍</h2>
+                    <p>There's something about the way you think…<br>
+                    the way you speak…<br>
+                    the way you pause before replying…</p>
+                    <p>It's soft.<br>It's precious.</p>
+                    <p>And I notice it.</p>
+                    <p class="small-text highlight">I notice you.</p>
+                `
+            },
+            {
+                id: 23,
+                title: "Final",
+                content: `
+                    <h2>🌻</h2>
+                    <p class="highlight" style="font-size: 2rem; margin-bottom: 2rem;">I'm glad you were born.</p>
+                    <div class="final-cards" id="finalCards"></div>
+                    <p class="highlight" style="font-size: 1.8rem; margin-top: 40px;">Happy Birthday, Bhavya 🌻<br>Enjoy your day 🥰.</p>
+                    <button class="restart-button" onclick="goToSection(0)">Restart from beginning 🤍</button>
+                    <button class="reveal-button" onclick="revealSurprise()" style="margin-top: 20px;">Wait... there's more 👀</button>
+                `
+            },
+            {
+                id: 24,
+                title: "Behind This",
+                content: `
+                    <h2>🤍 One Small Thing…</h2>
+                    <p>Okay wait.</p>
+                    <p>Before you think I suddenly turned into some secret website genius…</p>
+                    <p>Let's be honest.</p>
+                    <p class="highlight" style="font-size: 1.4rem; margin: 30px 0;">50% of this was me. 50% was AI helping me not mess things up.</p>
+                    <p>But the feelings? The ideas? The staying up late and overthinking every line?</p>
+                    <p class="highlight">That part was completely me.</p>
+                    <p style="margin-top: 40px;">So if something looks smart — thank the AI.</p>
+                    <p class="highlight" style="font-size: 1.5rem;">If something feels real — that's from me.</p>
+                    <p style="font-size: 2rem; margin-top: 30px;">😌🤍</p>
+                    <button class="reveal-button" onclick="revealFinalSurprise()" style="margin-top: 40px;">Okay now what? 👀</button>
+                `
+            },
+            {
+                id: 25,
+                title: "Surprise",
+                content: `
+                    <h2>🎁 One More Thing…</h2>
+                    <p>You didn't really think I would end it there, right?</p>
+                    <p>I wanted this whole website to feel calm… intentional… warm. Because that's how I see you.</p>
+                    <p>Somewhere between our random conversations, our late-night thoughts, and those small "did you reach home?" moments…<br><span class="highlight">you became important to me.</span></p>
+                    <p>Not loudly. Not dramatically.<br>Just steadily.</p>
+                    <p>And I don't rush steady things.</p>
+                    <p style="margin-top: 40px;">I'm not here to pressure you. I'm not here to label anything before its time.</p>
+                    <p>I just know this —</p>
+                    <p class="highlight">I like what we have. I like the energy between us. I like how natural it feels.</p>
+                    <p>And I'm curious where it could go.</p>
+                    <p style="margin-top: 40px;"><br>Just honesty between us.</p>
+                    <p>And maybe that's stronger.</p>
+                    <p style="font-size: 2rem; margin: 50px 0;">…</p>
+                    <p>And hey.</p>
+                    <p>If this made you a little emotional…<br>don't start a crying session, okay? 🥰</p>
+                    <p>Maybe just a small soft smile.</p>
+                    <p class="highlight">It's your birthday. You're supposed to glow today.</p>
+                    <p>I made this to make you feel special — not overwhelmed.</p>
+                    <p>So breathe. Fix that pretty smile. And remember —</p>
+                    <p class="highlight" style="font-size: 1.8rem; margin-top: 40px;">I'm always here by your side💖.</p>
+                    <p style="font-size: 2rem; margin-top: 30px;">🤍</p>
+                    <p> Once again HAPPY BIRTHDAY BHAVYA 🥰💖.</p>
+                `
+            }
+        ];
+
+        let currentSection = 0;
+        const sectionsContainer = document.getElementById('sectionsContainer');
+        const navDots = document.getElementById('navDots');
+
+        // Create ambient petals
+        function createAmbientPetals() {
+            const container = document.getElementById('ambientPetals');
+            for (let i = 0; i < 15; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'floating-petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(petal);
+            }
+        }
+
+        // Initialize sections
+        function initSections() {
+            sections.forEach((section, index) => {
+                const sectionEl = document.createElement('div');
+                sectionEl.className = 'section';
+                if (index >= sections.length - 2) {
+                    sectionEl.style.display = 'none';
+                }
+                sectionEl.id = `section${index}`;
+                sectionEl.innerHTML = `<div class="section-content">${section.content}</div>`;
+                sectionsContainer.appendChild(sectionEl);
+
+                if (index < sections.length - 2) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    navDots.appendChild(dot);
+                }
+            });
+
+            goToSection(0);
+        }
+
+        // Navigate to section
+        function goToSection(index) {
+            if (index < 0 || index >= sections.length - 2) return;
+
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+
+            const currentSectionEl = document.getElementById(`section${index}`);
+            currentSectionEl.classList.add('active');
+            currentSectionEl.scrollTop = 0;
+            
+            if (navDots.children[index]) {
+                navDots.children[index].classList.add('active');
+            }
+
+            currentSection = index;
+
+            setTimeout(() => {
+                if (index === 3) animateAppreciationWall();
+                if (index === 4) animateTimeline();
+                if (index === 7) animateEffectCards();
+                if (index === 8) setupSmileReveal();
+                if (index === 9) animateWeatherCards();
+                if (index === 10) animateCards();
+                if (index === 11) animateMemoryCards();
+                if (index === 13) animateEnergyCards();
+                if (index === 15) createRevealButtons();
+                if (index === 17) animateFutureCards();
+                if (index === 19) animateCompliments();
+                if (index === 22) animateFinalCards();
+            }, 500);
+        }
+
+        // Reveal surprise sections
+        function revealSurprise() {
+            const surpriseSection = document.getElementById(`section23`);
+            surpriseSection.style.display = 'flex';
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            surpriseSection.classList.add('active');
+            surpriseSection.scrollTop = 0;
+            createFireworks();
+        }
+
+        function revealFinalSurprise() {
+            const finalSection = document.getElementById(`section24`);
+            finalSection.style.display = 'flex';
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            finalSection.classList.add('active');
+            finalSection.scrollTop = 0;
+            createFireworks();
+            setTimeout(() => createFireworks(), 500);
+        }
+
+        function createFireworks() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.textContent = ['🎉', '✨', '🎊', '💛', '🌟'][Math.floor(Math.random() * 5)];
+                    firework.style.position = 'fixed';
+                    firework.style.left = Math.random() * 100 + '%';
+                    firework.style.top = Math.random() * 100 + '%';
+                    firework.style.fontSize = '2rem';
+                    firework.style.pointerEvents = 'none';
+                    firework.style.zIndex = '9999';
+                    firework.style.animation = 'floatHeart 2s ease-out forwards';
+                    document.body.appendChild(firework);
+                    setTimeout(() => firework.remove(), 2000);
+                }, i * 100);
+            }
+        }
+
+        // Animation functions (shortened for brevity - includes all from original)
+        function animateTimeline() {
+            const timeline = document.getElementById('timeline');
+            if (!timeline || timeline.children.length > 0) return;
+
+            const milestones = [
+                { date: 'First Message', text: 'hey bhavya.. we\'re making a team for the hackathon. still need a girl member… thought u\'d be perfect from our class...    i still remember how i sent this msg 😭', side: 'left' },
+                { date: 'Late Night Talks', text: 'The late night conversations... When we somehow went from random jokes to talking about marriages, parenting, and real-life responsibilities…', side: 'right' },
+                { date: 'Hang outs', text: 'The times when we went for ghumi ghumi, especially the first time... its still printed in my mind', side: 'left' },
+                { date: 'Comfort Zone', text: 'When talking to you became the best part of my day', side: 'right' },
+                { date: 'Today', text: 'Making this website because you deserve to feel special', side: 'left' }
+            ];
+
+            milestones.forEach((milestone, index) => {
+                setTimeout(() => {
+                    const item = document.createElement('div');
+                    item.className = `timeline-item ${milestone.side}`;
+                    item.innerHTML = `
+                        <div class="timeline-content">
+                            <div class="timeline-date">${milestone.date}</div>
+                            <div class="timeline-text">${milestone.text}</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    `;
+                    timeline.appendChild(item);
+                    setTimeout(() => item.classList.add('show'), 50);
+                }, index * 400);
+            });
+        }
+
+        function animateCards() {
+            const grid = document.getElementById('cardsGrid');
+            if (!grid || grid.children.length > 0) return;
+
+            const cards = [
+                { emoji: '😊', text: 'Your random expressions' },
+                { emoji: '💭', text: 'The way you talk with me' },
+                { emoji: '🎭', text: 'Your slightly dramatic reactions' },
+                { emoji: '😌', text: 'That smile you pretend not to have' }
+            ];
+
+            cards.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'card';
+                cardEl.innerHTML = `
+                    <div class="card-emoji">${card.emoji}</div>
+                    <div class="card-text">${card.text}</div>
+                `;
+                cardEl.style.animationDelay = `${index * 0.15}s`;
+                grid.appendChild(cardEl);
+                setTimeout(() => cardEl.classList.add('animate'), 100);
+            });
+        }
+
+        function animateMemoryCards() {
+            const container = document.getElementById('memoryCards');
+            if (!container || container.children.length > 0) return;
+
+            const memories = [
+                '"Our random long conversation"',
+                '"The way we laugh together"',
+                '"When I started waiting for your reply"',
+                '"The day it felt different"'
+            ];
+
+            memories.forEach((text, index) => {
+                setTimeout(() => {
+                    const card = document.createElement('div');
+                    card.className = 'memory-card';
+                    card.textContent = text;
+                    card.style.animationDelay = `${index * 0.15}s`;
+                    container.appendChild(card);
+                    setTimeout(() => card.classList.add('show'), 50);
+                }, index * 200);
+            });
+        }
+
+        function setupSmileReveal() {
+            const btn = document.getElementById('smileRevealBtn');
+            const container = document.getElementById('smileReveals');
+            
+            if (!btn || !container || btn.dataset.setup) return;
+            btn.dataset.setup = 'true';
+
+            const smileReasons = [
+                'It softens your whole face',
+                'Your eyes change when you smile',
+                'It feels real, not fake',
+                'It makes conversations warmer'
+            ];
+
+            btn.onclick = function() {
+                if (container.children.length > 0) return;
+                
+                this.style.opacity = '0.5';
+                this.style.pointerEvents = 'none';
+                
+                smileReasons.forEach((text, index) => {
+                    setTimeout(() => {
+                        const card = document.createElement('div');
+                        card.className = 'smile-card';
+                        card.textContent = text;
+                        card.style.animationDelay = `${index * 0.15}s`;
+                        container.appendChild(card);
+                        setTimeout(() => card.classList.add('reveal'), 50);
+                    }, index * 200);
+                });
+                
+                createHeartParticles(container);
+            };
+        }
+
+        function animateEnergyCards() {
+            const container = document.getElementById('energyCards');
+            if (!container || container.children.length > 0) return;
+
+            const energies = [
+                'Eye contact that lasts half a second too long',
+                'Messages typed… deleted… typed again',
+                'That calm silence that isn\'t awkward'
+            ];
+
+            energies.forEach((text, index) => {
+                setTimeout(() => {
+                    const card = document.createElement('div');
+                    card.className = 'energy-card';
+                    card.textContent = text;
+                    card.style.animationDelay = `${index * 0.15}s`;
+                    container.appendChild(card);
+                    setTimeout(() => card.classList.add('show'), 50);
+                }, index * 250);
+            });
+        }
+
+        function animateWeatherCards() {
+            const container = document.getElementById('weatherCards');
+            if (!container || container.children.length > 0) return;
+
+            const weathers = [
+                { emoji: '☀️', title: 'Sunshine', desc: 'When you\'re happy' },
+                { emoji: '🌧️', title: 'Dramatic clouds', desc: 'When you overthink' },
+                { emoji: '🌤️', title: 'Soft breeze', desc: 'When you\'re calm' },
+                { emoji: '⚡', title: 'Sudden storm', desc: 'When you get mad' }
+            ];
+
+            weathers.forEach((weather, index) => {
+                setTimeout(() => {
+                    const card = document.createElement('div');
+                    card.className = 'weather-card';
+                    card.innerHTML = `
+                        <div class="weather-emoji">${weather.emoji}</div>
+                        <div class="weather-title">${weather.title}</div>
+                        <div class="weather-desc">${weather.desc}</div>
+                    `;
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    container.appendChild(card);
+                    setTimeout(() => card.classList.add('show'), 50);
+                }, index * 200);
+            });
+        }
+
+        function animateEffectCards() {
+            const container = document.getElementById('effectCards');
+            if (!container || container.children.length > 0) return;
+
+            const effects = [
+                { from: 'Bad day', to: 'lighter' },
+                { from: 'Boring day', to: 'interesting' },
+                { from: 'Stress', to: 'what is stress?' },
+                { from: 'Silence', to: 'less lonely' }
+            ];
+
+            effects.forEach((effect, index) => {
+                setTimeout(() => {
+                    const card = document.createElement('div');
+                    card.className = 'effect-card';
+                    card.innerHTML = `${effect.from} <span class="effect-arrow">→</span> ${effect.to}`;
+                    card.style.animationDelay = `${index * 0.15}s`;
+                    container.appendChild(card);
+                    setTimeout(() => card.classList.add('show'), 50);
+                }, index * 200);
+            });
+        }
+
+        function animateAppreciationWall() {
+            const container = document.getElementById('appreciationWall');
+            if (!container || container.children.length > 0) return;
+
+            const qualities = [
+                'Emotionally intelligent',
+                'Observant',
+                'Soft-hearted',
+                'Strong in quiet ways',
+                'Independent',
+                'Slightly crazy in a cute way'
+            ];
+
+            qualities.forEach((text, index) => {
+                setTimeout(() => {
+                    const card = document.createElement('div');
+                    card.className = 'appreciation-card';
+                    card.textContent = text;
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    container.appendChild(card);
+                    setTimeout(() => card.classList.add('show'), 50);
+                }, index * 150);
+            });
+        }
+
+        function animateFutureCards() {
+            const container = document.getElementById('futureCards');
+            if (!container || container.children.length > 0) return;
+
+            const possibilities = [
+                'More late night talks',
+                'More shared jokes',
+                'Maybe real-life birthday plans',
+                'Maybe something real'
+            ];
+
+            possibilities.forEach((text, index) => {
+                setTimeout(() => {
+                    const card = document.createElement('div');
+                    card.className = 'future-card';
+                    card.textContent = text;
+                    card.style.animationDelay = `${index * 0.15}s`;
+                    container.appendChild(card);
+                    setTimeout(() => card.classList.add('show'), 50);
+                }, index * 250);
+            });
+        }
+
+        function animateCompliments() {
+            const container = document.getElementById('complimentsContainer');
+            if (!container || container.children.length > 0) return;
+
+            const compliments = [
+                'Intelligent', 'Thoughtful', 'Soft-hearted', 'Strong',
+                'Attractive', 'Slightly stubborn', 'My favorite notification'
+            ];
+
+            compliments.forEach((text, index) => {
+                setTimeout(() => {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'compliment-bubble';
+                    bubble.textContent = text;
+                    
+                    if (index === compliments.length - 1) {
+                        bubble.style.animationDelay = `${index * 0.25}s`;
+                    } else {
+                        bubble.style.animationDelay = `${index * 0.15}s`;
+                    }
+                    
+                    container.appendChild(bubble);
+                }, index * 200);
+            });
+        }
+
+        function createRevealButtons() {
+            const container = document.getElementById('revealContainer');
+            if (!container || container.children.length > 0) return;
+
+            const secrets = [
+                'Yes, I smile while texting you.',
+                'Yes, I think about you every minute.',
+                'No, I\'m not admitting more.'
+            ];
+
+            secrets.forEach((secret, index) => {
+                const button = document.createElement('button');
+                button.className = 'reveal-button';
+                button.textContent = `Tap to reveal ${index + 1}`;
+                
+                const secretText = document.createElement('div');
+                secretText.className = 'secret-text';
+                secretText.textContent = secret;
+                
+                button.onclick = function() {
+                    if (!secretText.classList.contains('show')) {
+                        secretText.classList.add('show');
+                        this.style.opacity = '0.5';
+                        this.style.pointerEvents = 'none';
+                        createHeartParticles(secretText);
+                    }
+                };
+                
+                container.appendChild(button);
+                container.appendChild(secretText);
+            });
+        }
+
+        function animateFinalCards() {
+            const container = document.getElementById('finalCards');
+            if (!container || container.children.length > 0) return;
+
+            const final = [
+                { text: 'The world needed your softness', size: '1.25rem' },
+                { text: 'The world needed your strength', size: '1.25rem' },
+                { text: 'And maybe…', size: '1.1rem' },
+                { text: 'I needed you too.', size: '1.35rem' }
+            ];
+
+            final.forEach((item, index) => {
+                setTimeout(() => {
+                    const card = document.createElement('div');
+                    card.className = 'final-card';
+                    card.textContent = item.text;
+                    card.style.fontSize = item.size;
+                    card.style.animationDelay = `${index * 0.2}s`;
+                    container.appendChild(card);
+                    setTimeout(() => card.classList.add('show'), 50);
+                }, index * 400);
+            });
+        }
+
+        function createHeartParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 5; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.textContent = ['💛', '🌻', '✨'][Math.floor(Math.random() * 3)];
+                heart.style.left = centerX + (Math.random() - 0.5) * 100 + 'px';
+                heart.style.top = centerY + 'px';
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 3000);
+            }
+        }
+
+        // ARROW KEYS ONLY navigation
+        let lastKeyTime = 0;
+        
+        document.addEventListener('keydown', (e) => {
+            const now = Date.now();
+            if (now - lastKeyTime < 600) return;
+            lastKeyTime = now;
+            
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                goToSection(currentSection + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                goToSection(currentSection - 1);
+            }
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createAmbientPetals();
+            initSections();
+            
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hide');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
